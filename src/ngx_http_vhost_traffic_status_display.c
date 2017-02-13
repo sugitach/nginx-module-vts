@@ -178,13 +178,9 @@ ngx_http_vhost_traffic_status_display_handler_control(ngx_http_request_t *r)
         ngx_http_vhost_traffic_status_node_control_range_set(control);
     }
 
-    if (control->command == NGX_HTTP_VHOST_TRAFFIC_STATUS_CONTROL_CMD_STATUS) {
-        size = ctx->shm_size;
-
-    } else {
-        size = sizeof(NGX_HTTP_VHOST_TRAFFIC_STATUS_JSON_FMT_CONTROL)
-               + arg_cmd.len + arg_group.len + arg_zone.len + 256;
-    }
+    size = ctx->shm_size
+      + sizeof(NGX_HTTP_VHOST_TRAFFIC_STATUS_JSON_FMT_CONTROL)
+      + arg_cmd.len + arg_group.len + arg_zone.len + 256;
 
     ngx_str_set(&type, "application/json");
 

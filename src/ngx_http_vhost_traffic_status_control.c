@@ -627,8 +627,15 @@ ngx_http_vhost_traffic_status_node_reset(
 {
     ngx_rbtree_node_t                    *node;
     ngx_http_vhost_traffic_status_ctx_t  *ctx;
+    ngx_buf_t *buf;
+    size_t size;
 
     ctx = ngx_http_get_module_main_conf(control->r, ngx_http_vhost_traffic_status_module);
+
+    size = ctx->shm_size;
+    buf = ngx_create_temp_buf(control->r->pool, size);
+    buf->last = ngx_http_vhost_traffic_status_display_set(control->r, buf->last);
+    *buf->last = '\0';
 
     node = ctx->rbtree->root;
 
@@ -651,7 +658,7 @@ ngx_http_vhost_traffic_status_node_reset(
                                 NGX_HTTP_VHOST_TRAFFIC_STATUS_JSON_FMT_CONTROL,
                                 ngx_http_vhost_traffic_status_boolean_to_string(1),
                                 control->arg_cmd, control->arg_group,
-                                control->arg_zone, control->count);
+                                control->arg_zone, control->count, buf->start);
 }
 
 /* vi:set ft=c ts=4 sw=4 et fdm=marker: */

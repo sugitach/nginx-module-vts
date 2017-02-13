@@ -23,7 +23,8 @@
     "\"processingCommandString\":\"%V\","                                      \
     "\"processingGroupString\":\"%V\","                                        \
     "\"processingZoneString\":\"%V\","                                         \
-    "\"processingCounts\":%ui"                                                 \
+    "\"processingCounts\":%ui,"                                                \
+    "\"lastStatus\":%s"                                                        \
     "}"
 
 
